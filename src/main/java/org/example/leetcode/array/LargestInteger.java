@@ -1,41 +1,47 @@
 package org.example.leetcode.array;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LargestInteger {
     public static void main(String[] args) {
-        int nums[] = new int[]{3,9,2,1,7};
-        System.out.println(largestInteger(nums,3));
+        int nums[] = new int[]{111311,1113};
+        System.out.println(largestNumber(nums));
     }
-    public static int largestInteger(int[] nums, int k) {
+    public static String largestNumber(int[] nums) {
         int len = nums.length;
-        if(k==1 ){
-            return Arrays.stream(nums).boxed().collect(Collectors
-                            .groupingBy(Function.identity(), Collectors.counting()))
-                    .entrySet().stream().filter(entry -> entry.getValue() == 1)
-                    .map(x -> x.getKey()).max((a, b) -> Integer.compare(a, b)).orElse(-1);
+        String numbers[] = new String[len];
+        int sum = Arrays.stream(nums).sum();
+        if(sum == 0)
+            return "0";
+        for(int i=0;i<len;i++){
+            numbers[i] = String.valueOf(nums[i]);
         }
-        if(k==len){
-            return Arrays.stream(nums).boxed().max(Integer::compare).orElse(-1);
-        }
-        boolean start = true;
-        boolean end = true;
-        for(int i=1;i<len-1;i++){
-            if(nums[i] == nums[0])
-                start = false;
-            if(nums[i] == nums[len-1])
-                end = false;
-        }
-        if(start && end)
-            return Math.max(nums[0],nums[len-1]);
-        else if(start || end){
-            return start ? nums[0] : nums[len-1];
-        }else
-            return -1;
+        Comparator<String> comparator = new Comparator<String>() {
+            @Override
+            public int compare( String s1, String s2) {
+                int in1 = 0;
+                int in2 = 0;
+                int len1 = s1.length();
+                int len2 = s2.length();
+                int len = len1+len2;
+                while(in1 < len){
+                    if(s1.charAt(in1%len1) > s2.charAt(in2%len2)){
+                        return 1;
+                    }else if(s1.charAt(in1%len1) < s2.charAt(in2%len2)) {
+                        return -1;
+                    }
+                    in1++;
+                    in2++;
+                }
+                return Integer.compare(len1,len2);
+            }
+        };
+        Arrays.sort(numbers, comparator);
+        StringBuilder sb = new StringBuilder();
+        for(int i=numbers.length-1;i>=0;i--)
+            sb.append(numbers[i]);
+        return sb.toString();
     }
 }
