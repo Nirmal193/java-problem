@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.ds_store.MinHeap;
-
-import java.util.Comparator;
+import org.example.revesion.graph.MinHeap;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
