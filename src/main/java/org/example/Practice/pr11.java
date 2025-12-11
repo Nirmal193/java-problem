@@ -11,6 +11,9 @@ public class pr11 {
     }
 
     public static void main(String[] args) {
+        int a = 4;
+        int b = 60;
+        System.out.println((double) a/b);
 
     }
 }

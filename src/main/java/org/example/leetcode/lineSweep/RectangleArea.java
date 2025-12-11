@@ -51,4 +51,14 @@ public class RectangleArea {
         }
         return ans;
     }
+
+    public static void main(String[] args) {
+        int[][] segments = {
+                {0, 0, 2, 2},  // segment 1
+                {1, 0, 2, 3},  // segment 2
+                {1, 0, 3, 1}   // segment 3
+        };
+        RectangleArea rec = new RectangleArea();
+        System.out.println(rec.rectangleArea(segments));
+    }
 }
